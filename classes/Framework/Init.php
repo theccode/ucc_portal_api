@@ -23,15 +23,12 @@ class Init{
         return ob_get_clean();
     }
     public function start(){
-        $response = [];
         $auth = $this->routes->getAuth();
         $routes = $this->routes->getRoutes();
         $action = $routes[$this->route][$this->method]['action'];
         $controller = $routes[$this->route][$this->method]['controller'];
         $result = $controller->$action();
-        if (isset($result['variables'])){
-            $response[] = $this->getResponseData($result['variables']);
-        }
-        echo json_encode($result['variables']);
+
+        echo json_encode($result['variables'], true);
     }
 }

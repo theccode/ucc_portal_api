@@ -10,7 +10,7 @@ class Auth{
         session_start();
         $this->users = $users;
         $this->userDetails = $userDetails;
-        $this->usernameColumn = $usernameColumn;
+        $this->usernameColumn = $usernameColumn; 
         $this->passwordColumn = $passwordColumn;
     }
 
@@ -40,12 +40,18 @@ class Auth{
             return false;
         }
     }
-    public function authUser(){
+    public function getAuthUserCredentials(){
         if ($this->login($_SESSION['username'], $_SESSION['password'])){
-            $user = $this->userDetails->findById($this->usernameColumn, $_SESSION['username']);
+            $user = $this->users->findById($this->usernameColumn, $_SESSION['username']);
             if (!empty($user)){
                 return $user;
             }
+        }
+    }
+    public function getAuthUserDetails(){
+        $user_details = $this->userDetails->findById($this->usernameColumn, $_SESSION['username']);
+        if (!empty($user_details)){
+            return $user_details;
         }
     }
 }
